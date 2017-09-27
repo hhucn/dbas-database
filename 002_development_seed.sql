@@ -64,14 +64,14 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner:
 --
 
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner:
 --
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
@@ -102,14 +102,14 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner:
 --
 
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner:
 --
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
@@ -1717,7 +1717,6 @@ ALTER SEQUENCE statement_replacements_by_premisegroups_merge_uid_seq OWNED BY st
 
 CREATE TABLE statements (
     uid integer NOT NULL,
-    textversion_uid integer,
     is_startpoint boolean NOT NULL,
     issue_uid integer,
     is_disabled boolean NOT NULL
@@ -7734,89 +7733,89 @@ SELECT pg_catalog.setval('statement_replacements_by_premisegroups_merge_uid_seq'
 -- Data for Name: statements; Type: TABLE DATA; Schema: public; Owner: dbas
 --
 
-COPY statements (uid, textversion_uid, is_startpoint, issue_uid, is_disabled) FROM stdin;
-1	75	t	2	t
-2	1	t	2	f
-3	2	t	2	f
-4	3	t	2	f
-5	4	f	2	f
-6	5	f	2	f
-7	6	f	2	f
-8	7	f	2	f
-9	8	f	2	f
-10	9	f	2	f
-11	10	f	2	f
-12	11	f	2	f
-13	12	f	2	f
-14	13	f	2	f
-15	14	f	2	f
-16	15	f	2	f
-17	16	f	2	f
-18	17	f	2	f
-19	18	f	2	f
-20	19	f	2	f
-21	20	f	2	f
-22	21	f	2	f
-23	22	f	2	f
-24	23	f	2	f
-25	24	f	2	f
-26	25	f	2	f
-27	26	f	2	f
-28	27	f	2	f
-29	28	f	2	f
-30	29	f	2	f
-31	30	f	2	f
-32	31	f	2	f
-33	32	f	2	f
-34	33	f	2	f
-35	34	f	2	f
-36	35	t	1	f
-37	36	t	1	f
-38	37	t	1	f
-39	38	f	1	f
-40	39	f	1	f
-41	40	f	1	f
-42	41	f	1	f
-43	42	f	1	f
-44	43	f	1	f
-45	44	f	1	f
-46	45	f	1	f
-47	46	f	1	f
-48	47	f	1	f
-49	48	f	1	f
-50	49	f	1	f
-51	50	f	1	f
-52	51	f	1	f
-53	52	f	1	f
-54	53	f	1	f
-55	54	f	1	f
-56	55	f	1	f
-57	56	f	1	f
-58	57	t	4	f
-59	58	f	4	f
-60	59	f	4	f
-61	60	f	4	f
-62	61	f	4	f
-63	62	f	4	f
-64	63	f	4	f
-65	64	f	4	f
-66	65	f	4	f
-67	66	t	4	f
-68	67	f	4	f
-69	68	t	5	f
-70	69	t	5	f
-71	70	f	5	f
-72	71	f	5	f
-73	72	f	5	f
-74	73	f	5	f
-75	74	f	5	f
-76	76	t	7	f
-77	77	f	7	f
-78	78	f	7	f
-79	79	f	7	f
-80	80	f	7	f
-81	81	f	7	f
-82	82	f	7	f
+COPY statements (uid, is_startpoint, issue_uid, is_disabled) FROM stdin;
+1	t	2	t
+2	t	2	f
+3	t	2	f
+4	t	2	f
+5	f	2	f
+6	f	2	f
+7	f	2	f
+8	f	2	f
+9	f	2	f
+10	f	2	f
+11	f	2	f
+12	f	2	f
+13	f	2	f
+14	f	2	f
+15	f	2	f
+16	f	2	f
+17	f	2	f
+18	f	2	f
+19	f	2	f
+20	f	2	f
+21	f	2	f
+22	f	2	f
+23	f	2	f
+24	f	2	f
+25	f	2	f
+26	f	2	f
+27	f	2	f
+28	f	2	f
+29	f	2	f
+30	f	2	f
+31	f	2	f
+32	f	2	f
+33	f	2	f
+34	f	2	f
+35	f	2	f
+36	t	1	f
+37	t	1	f
+38	t	1	f
+39	f	1	f
+40	f	1	f
+41	f	1	f
+42	f	1	f
+43	f	1	f
+44	f	1	f
+45	f	1	f
+46	f	1	f
+47	f	1	f
+48	f	1	f
+49	f	1	f
+50	f	1	f
+51	f	1	f
+52	f	1	f
+53	f	1	f
+54	f	1	f
+55	f	1	f
+56	f	1	f
+57	f	1	f
+58	t	4	f
+59	f	4	f
+60	f	4	f
+61	f	4	f
+62	f	4	f
+63	f	4	f
+64	f	4	f
+65	f	4	f
+66	f	4	f
+67	t	4	f
+68	f	4	f
+69	t	5	f
+70	t	5	f
+71	f	5	f
+72	f	5	f
+73	f	5	f
+74	f	5	f
+75	f	5	f
+76	t	7	f
+77	f	7	f
+78	f	7	f
+79	f	7	f
+80	f	7	f
+81	f	7	f
+82	f	7	f
 \.
 
 
@@ -9666,14 +9665,14 @@ CREATE SCHEMA news;
 ALTER SCHEMA news OWNER TO postgres;
 
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner:
 --
 
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner:
 --
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
@@ -9850,14 +9849,14 @@ COMMENT ON DATABASE postgres IS 'default administrative connection database';
 
 
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner:
 --
 
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner:
 --
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
@@ -9905,14 +9904,14 @@ COMMENT ON DATABASE template1 IS 'default template for new databases';
 
 
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner:
 --
 
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner:
 --
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
