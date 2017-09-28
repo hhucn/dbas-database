@@ -131,6 +131,7 @@ INSERT INTO public.alembic_version
 (version_num)
 VALUES('2a4bc7c8ff38');
 
+ALTER TABLE public.alembic_version OWNER TO dbas;
 
 --
 -- Name: arguments; Type: TABLE; Schema: public; Owner: dbas
