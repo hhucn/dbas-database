@@ -9259,14 +9259,6 @@ ALTER TABLE ONLY statements
 
 
 --
--- Name: statements statements_textversion_uid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: dbas
---
-
-ALTER TABLE ONLY statements
-    ADD CONSTRAINT statements_textversion_uid_fkey FOREIGN KEY (textversion_uid) REFERENCES textversions(uid);
-
-
---
 -- Name: textversions textversions_author_uid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: dbas
 --
 
