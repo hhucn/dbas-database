@@ -121,6 +121,17 @@ SET default_tablespace = '';
 
 SET default_with_oids = false;
 
+
+-- Add initial migration revision for this file
+CREATE TABLE public.alembic_version (
+	version_num varchar(32) NOT NULL,
+	CONSTRAINT alembic_version_pkc PRIMARY KEY (version_num)
+);
+INSERT INTO public.alembic_version
+(version_num)
+VALUES('2a4bc7c8ff38');
+
+
 --
 -- Name: arguments; Type: TABLE; Schema: public; Owner: dbas
 --
