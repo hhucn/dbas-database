@@ -1,3 +1,3 @@
-FROM postgres:9.6-alpine
+FROM postgres:10.0-alpine
 
-ADD . /docker-entrypoint-initdb.d
+ADD ./entrypoint /docker-entrypoint-initdb.d
