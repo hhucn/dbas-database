@@ -8,39 +8,11 @@ SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 
 --
--- Roles
---
-
-CREATE ROLE dbas;
-ALTER ROLE dbas WITH NOSUPERUSER INHERIT NOCREATEROLE NOCREATEDB LOGIN NOREPLICATION NOBYPASSRLS PASSWORD 'md5181cd7dfb38b99d445abaeff03b0aa05';
-CREATE ROLE dolan;
-ALTER ROLE dolan WITH NOSUPERUSER INHERIT NOCREATEROLE NOCREATEDB LOGIN NOREPLICATION NOBYPASSRLS PASSWORD 'md5ecfa1a1878544ac476cad6b4f2e619ca';
-CREATE ROLE read_only_discussion;
-ALTER ROLE read_only_discussion WITH NOSUPERUSER INHERIT NOCREATEROLE NOCREATEDB NOLOGIN NOREPLICATION NOBYPASSRLS;
-CREATE ROLE writer;
-ALTER ROLE writer WITH NOSUPERUSER INHERIT NOCREATEROLE NOCREATEDB NOLOGIN NOREPLICATION NOBYPASSRLS;
-
-
---
--- Role memberships
---
-
-GRANT read_only_discussion TO dolan GRANTED BY postgres;
-GRANT writer TO dbas GRANTED BY postgres;
-
-
-
-
---
 -- Database creation
 --
 
 CREATE DATABASE beaker WITH TEMPLATE = template0 OWNER = postgres;
 CREATE DATABASE discussion WITH TEMPLATE = template0 OWNER = postgres;
-GRANT CONNECT ON DATABASE discussion TO read_only_discussion;
-REVOKE CONNECT,TEMPORARY ON DATABASE template1 FROM PUBLIC;
-GRANT CONNECT ON DATABASE template1 TO PUBLIC;
-
 
 \connect beaker
 
@@ -106,9 +78,6 @@ SET row_security = off;
 
 CREATE SCHEMA news;
 
-
-ALTER SCHEMA news OWNER TO postgres;
-
 --
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner:
 --
@@ -144,8 +113,6 @@ CREATE TABLE news (
 );
 
 
-ALTER TABLE news OWNER TO dbas;
-
 --
 -- Name: news_uid_seq; Type: SEQUENCE; Schema: news; Owner: dbas
 --
@@ -156,9 +123,6 @@ CREATE SEQUENCE news_uid_seq
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-
-
-ALTER TABLE news_uid_seq OWNER TO dbas;
 
 --
 -- Name: news_uid_seq; Type: SEQUENCE OWNED BY; Schema: news; Owner: dbas
@@ -178,8 +142,6 @@ CREATE TABLE alembic_version (
 );
 
 
-ALTER TABLE alembic_version OWNER TO dbas;
-
 --
 -- Name: arguments; Type: TABLE; Schema: public; Owner: dbas
 --
@@ -197,7 +159,7 @@ CREATE TABLE arguments (
 );
 
 
-ALTER TABLE arguments OWNER TO dbas;
+
 
 --
 -- Name: arguments_added_by_premisegroups_split; Type: TABLE; Schema: public; Owner: dbas
@@ -211,7 +173,7 @@ CREATE TABLE arguments_added_by_premisegroups_split (
 );
 
 
-ALTER TABLE arguments_added_by_premisegroups_split OWNER TO dbas;
+
 
 --
 -- Name: arguments_added_by_premisegroups_split_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -225,7 +187,7 @@ CREATE SEQUENCE arguments_added_by_premisegroups_split_uid_seq
     CACHE 1;
 
 
-ALTER TABLE arguments_added_by_premisegroups_split_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: arguments_added_by_premisegroups_split_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -246,7 +208,7 @@ CREATE SEQUENCE arguments_uid_seq
     CACHE 1;
 
 
-ALTER TABLE arguments_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: arguments_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -269,7 +231,7 @@ CREATE TABLE clicked_arguments (
 );
 
 
-ALTER TABLE clicked_arguments OWNER TO dbas;
+
 
 --
 -- Name: clicked_arguments_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -283,7 +245,7 @@ CREATE SEQUENCE clicked_arguments_uid_seq
     CACHE 1;
 
 
-ALTER TABLE clicked_arguments_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: clicked_arguments_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -306,7 +268,7 @@ CREATE TABLE clicked_statements (
 );
 
 
-ALTER TABLE clicked_statements OWNER TO dbas;
+
 
 --
 -- Name: clicked_statements_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -320,7 +282,7 @@ CREATE SEQUENCE clicked_statements_uid_seq
     CACHE 1;
 
 
-ALTER TABLE clicked_statements_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: clicked_statements_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -339,7 +301,7 @@ CREATE TABLE groups (
 );
 
 
-ALTER TABLE groups OWNER TO dbas;
+
 
 --
 -- Name: groups_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -353,7 +315,7 @@ CREATE SEQUENCE groups_uid_seq
     CACHE 1;
 
 
-ALTER TABLE groups_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: groups_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -374,7 +336,7 @@ CREATE TABLE history (
 );
 
 
-ALTER TABLE history OWNER TO dbas;
+
 
 --
 -- Name: history_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -388,7 +350,7 @@ CREATE SEQUENCE history_uid_seq
     CACHE 1;
 
 
-ALTER TABLE history_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: history_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -414,7 +376,7 @@ CREATE TABLE issues (
 );
 
 
-ALTER TABLE issues OWNER TO dbas;
+
 
 --
 -- Name: issues_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -428,7 +390,7 @@ CREATE SEQUENCE issues_uid_seq
     CACHE 1;
 
 
-ALTER TABLE issues_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: issues_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -448,7 +410,7 @@ CREATE TABLE languages (
 );
 
 
-ALTER TABLE languages OWNER TO dbas;
+
 
 --
 -- Name: languages_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -462,7 +424,7 @@ CREATE SEQUENCE languages_uid_seq
     CACHE 1;
 
 
-ALTER TABLE languages_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: languages_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -484,7 +446,7 @@ CREATE TABLE last_reviewers_delete (
 );
 
 
-ALTER TABLE last_reviewers_delete OWNER TO dbas;
+
 
 --
 -- Name: last_reviewers_delete_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -498,7 +460,7 @@ CREATE SEQUENCE last_reviewers_delete_uid_seq
     CACHE 1;
 
 
-ALTER TABLE last_reviewers_delete_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: last_reviewers_delete_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -520,7 +482,7 @@ CREATE TABLE last_reviewers_duplicates (
 );
 
 
-ALTER TABLE last_reviewers_duplicates OWNER TO dbas;
+
 
 --
 -- Name: last_reviewers_duplicates_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -534,7 +496,7 @@ CREATE SEQUENCE last_reviewers_duplicates_uid_seq
     CACHE 1;
 
 
-ALTER TABLE last_reviewers_duplicates_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: last_reviewers_duplicates_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -556,7 +518,7 @@ CREATE TABLE last_reviewers_edit (
 );
 
 
-ALTER TABLE last_reviewers_edit OWNER TO dbas;
+
 
 --
 -- Name: last_reviewers_edit_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -570,7 +532,7 @@ CREATE SEQUENCE last_reviewers_edit_uid_seq
     CACHE 1;
 
 
-ALTER TABLE last_reviewers_edit_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: last_reviewers_edit_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -592,7 +554,7 @@ CREATE TABLE last_reviewers_merge (
 );
 
 
-ALTER TABLE last_reviewers_merge OWNER TO dbas;
+
 
 --
 -- Name: last_reviewers_merge_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -606,7 +568,7 @@ CREATE SEQUENCE last_reviewers_merge_uid_seq
     CACHE 1;
 
 
-ALTER TABLE last_reviewers_merge_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: last_reviewers_merge_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -628,7 +590,7 @@ CREATE TABLE last_reviewers_optimization (
 );
 
 
-ALTER TABLE last_reviewers_optimization OWNER TO dbas;
+
 
 --
 -- Name: last_reviewers_optimization_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -642,7 +604,7 @@ CREATE SEQUENCE last_reviewers_optimization_uid_seq
     CACHE 1;
 
 
-ALTER TABLE last_reviewers_optimization_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: last_reviewers_optimization_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -664,7 +626,7 @@ CREATE TABLE last_reviewers_split (
 );
 
 
-ALTER TABLE last_reviewers_split OWNER TO dbas;
+
 
 --
 -- Name: last_reviewers_split_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -678,7 +640,7 @@ CREATE SEQUENCE last_reviewers_split_uid_seq
     CACHE 1;
 
 
-ALTER TABLE last_reviewers_split_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: last_reviewers_split_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -699,7 +661,7 @@ CREATE TABLE marked_arguments (
 );
 
 
-ALTER TABLE marked_arguments OWNER TO dbas;
+
 
 --
 -- Name: marked_arguments_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -713,7 +675,7 @@ CREATE SEQUENCE marked_arguments_uid_seq
     CACHE 1;
 
 
-ALTER TABLE marked_arguments_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: marked_arguments_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -734,7 +696,7 @@ CREATE TABLE marked_statements (
 );
 
 
-ALTER TABLE marked_statements OWNER TO dbas;
+
 
 --
 -- Name: marked_statements_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -748,7 +710,7 @@ CREATE SEQUENCE marked_statements_uid_seq
     CACHE 1;
 
 
-ALTER TABLE marked_statements_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: marked_statements_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -773,7 +735,7 @@ CREATE TABLE messages (
 );
 
 
-ALTER TABLE messages OWNER TO dbas;
+
 
 --
 -- Name: messages_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -787,7 +749,7 @@ CREATE SEQUENCE messages_uid_seq
     CACHE 1;
 
 
-ALTER TABLE messages_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: messages_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -807,7 +769,7 @@ CREATE TABLE optimization_review_locks (
 );
 
 
-ALTER TABLE optimization_review_locks OWNER TO dbas;
+
 
 --
 -- Name: premisegroup_merged; Type: TABLE; Schema: public; Owner: dbas
@@ -822,7 +784,7 @@ CREATE TABLE premisegroup_merged (
 );
 
 
-ALTER TABLE premisegroup_merged OWNER TO dbas;
+
 
 --
 -- Name: premisegroup_merged_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -836,7 +798,7 @@ CREATE SEQUENCE premisegroup_merged_uid_seq
     CACHE 1;
 
 
-ALTER TABLE premisegroup_merged_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: premisegroup_merged_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -858,7 +820,7 @@ CREATE TABLE premisegroup_splitted (
 );
 
 
-ALTER TABLE premisegroup_splitted OWNER TO dbas;
+
 
 --
 -- Name: premisegroup_splitted_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -872,7 +834,7 @@ CREATE SEQUENCE premisegroup_splitted_uid_seq
     CACHE 1;
 
 
-ALTER TABLE premisegroup_splitted_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: premisegroup_splitted_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -891,7 +853,7 @@ CREATE TABLE premisegroups (
 );
 
 
-ALTER TABLE premisegroups OWNER TO dbas;
+
 
 --
 -- Name: premisegroups_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -905,7 +867,7 @@ CREATE SEQUENCE premisegroups_uid_seq
     CACHE 1;
 
 
-ALTER TABLE premisegroups_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: premisegroups_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -930,7 +892,7 @@ CREATE TABLE premises (
 );
 
 
-ALTER TABLE premises OWNER TO dbas;
+
 
 --
 -- Name: premises_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -944,7 +906,7 @@ CREATE SEQUENCE premises_uid_seq
     CACHE 1;
 
 
-ALTER TABLE premises_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: premises_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -965,7 +927,7 @@ CREATE TABLE reputation_history (
 );
 
 
-ALTER TABLE reputation_history OWNER TO dbas;
+
 
 --
 -- Name: reputation_history_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -979,7 +941,7 @@ CREATE SEQUENCE reputation_history_uid_seq
     CACHE 1;
 
 
-ALTER TABLE reputation_history_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: reputation_history_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -999,7 +961,7 @@ CREATE TABLE reputation_reasons (
 );
 
 
-ALTER TABLE reputation_reasons OWNER TO dbas;
+
 
 --
 -- Name: reputation_reasons_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -1013,7 +975,7 @@ CREATE SEQUENCE reputation_reasons_uid_seq
     CACHE 1;
 
 
-ALTER TABLE reputation_reasons_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: reputation_reasons_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -1040,7 +1002,7 @@ CREATE TABLE review_canceled (
 );
 
 
-ALTER TABLE review_canceled OWNER TO dbas;
+
 
 --
 -- Name: review_canceled_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -1054,7 +1016,7 @@ CREATE SEQUENCE review_canceled_uid_seq
     CACHE 1;
 
 
-ALTER TABLE review_canceled_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: review_canceled_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -1073,7 +1035,7 @@ CREATE TABLE review_delete_reasons (
 );
 
 
-ALTER TABLE review_delete_reasons OWNER TO dbas;
+
 
 --
 -- Name: review_delete_reasons_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -1087,7 +1049,7 @@ CREATE SEQUENCE review_delete_reasons_uid_seq
     CACHE 1;
 
 
-ALTER TABLE review_delete_reasons_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: review_delete_reasons_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -1112,7 +1074,7 @@ CREATE TABLE review_deletes (
 );
 
 
-ALTER TABLE review_deletes OWNER TO dbas;
+
 
 --
 -- Name: review_deletes_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -1126,7 +1088,7 @@ CREATE SEQUENCE review_deletes_uid_seq
     CACHE 1;
 
 
-ALTER TABLE review_deletes_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: review_deletes_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -1150,7 +1112,7 @@ CREATE TABLE review_duplicates (
 );
 
 
-ALTER TABLE review_duplicates OWNER TO dbas;
+
 
 --
 -- Name: review_duplicates_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -1164,7 +1126,7 @@ CREATE SEQUENCE review_duplicates_uid_seq
     CACHE 1;
 
 
-ALTER TABLE review_duplicates_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: review_duplicates_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -1186,7 +1148,7 @@ CREATE TABLE review_edit_values (
 );
 
 
-ALTER TABLE review_edit_values OWNER TO dbas;
+
 
 --
 -- Name: review_edit_values_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -1200,7 +1162,7 @@ CREATE SEQUENCE review_edit_values_uid_seq
     CACHE 1;
 
 
-ALTER TABLE review_edit_values_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: review_edit_values_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -1224,7 +1186,7 @@ CREATE TABLE review_edits (
 );
 
 
-ALTER TABLE review_edits OWNER TO dbas;
+
 
 --
 -- Name: review_edits_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -1238,7 +1200,7 @@ CREATE SEQUENCE review_edits_uid_seq
     CACHE 1;
 
 
-ALTER TABLE review_edits_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: review_edits_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -1261,7 +1223,7 @@ CREATE TABLE review_merge (
 );
 
 
-ALTER TABLE review_merge OWNER TO dbas;
+
 
 --
 -- Name: review_merge_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -1275,7 +1237,7 @@ CREATE SEQUENCE review_merge_uid_seq
     CACHE 1;
 
 
-ALTER TABLE review_merge_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: review_merge_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -1295,7 +1257,7 @@ CREATE TABLE review_merge_values (
 );
 
 
-ALTER TABLE review_merge_values OWNER TO dbas;
+
 
 --
 -- Name: review_merge_values_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -1309,7 +1271,7 @@ CREATE SEQUENCE review_merge_values_uid_seq
     CACHE 1;
 
 
-ALTER TABLE review_merge_values_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: review_merge_values_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -1333,7 +1295,7 @@ CREATE TABLE review_optimizations (
 );
 
 
-ALTER TABLE review_optimizations OWNER TO dbas;
+
 
 --
 -- Name: review_optimizations_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -1347,7 +1309,7 @@ CREATE SEQUENCE review_optimizations_uid_seq
     CACHE 1;
 
 
-ALTER TABLE review_optimizations_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: review_optimizations_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -1370,7 +1332,7 @@ CREATE TABLE review_split (
 );
 
 
-ALTER TABLE review_split OWNER TO dbas;
+
 
 --
 -- Name: review_split_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -1384,7 +1346,7 @@ CREATE SEQUENCE review_split_uid_seq
     CACHE 1;
 
 
-ALTER TABLE review_split_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: review_split_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -1404,7 +1366,7 @@ CREATE TABLE review_split_values (
 );
 
 
-ALTER TABLE review_split_values OWNER TO dbas;
+
 
 --
 -- Name: review_split_values_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -1418,7 +1380,7 @@ CREATE SEQUENCE review_split_values_uid_seq
     CACHE 1;
 
 
-ALTER TABLE review_split_values_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: review_split_values_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -1440,7 +1402,7 @@ CREATE TABLE revoked_content (
 );
 
 
-ALTER TABLE revoked_content OWNER TO dbas;
+
 
 --
 -- Name: revoked_content_history; Type: TABLE; Schema: public; Owner: dbas
@@ -1455,7 +1417,7 @@ CREATE TABLE revoked_content_history (
 );
 
 
-ALTER TABLE revoked_content_history OWNER TO dbas;
+
 
 --
 -- Name: revoked_content_history_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -1469,7 +1431,7 @@ CREATE SEQUENCE revoked_content_history_uid_seq
     CACHE 1;
 
 
-ALTER TABLE revoked_content_history_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: revoked_content_history_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -1490,7 +1452,7 @@ CREATE SEQUENCE revoked_content_uid_seq
     CACHE 1;
 
 
-ALTER TABLE revoked_content_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: revoked_content_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -1514,7 +1476,7 @@ CREATE TABLE revoked_duplicate (
 );
 
 
-ALTER TABLE revoked_duplicate OWNER TO dbas;
+
 
 --
 -- Name: revoked_duplicate_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -1528,7 +1490,7 @@ CREATE SEQUENCE revoked_duplicate_uid_seq
     CACHE 1;
 
 
-ALTER TABLE revoked_duplicate_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: revoked_duplicate_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -1551,7 +1513,7 @@ CREATE TABLE rss (
 );
 
 
-ALTER TABLE rss OWNER TO dbas;
+
 
 --
 -- Name: rss_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -1565,7 +1527,7 @@ CREATE SEQUENCE rss_uid_seq
     CACHE 1;
 
 
-ALTER TABLE rss_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: rss_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -1585,7 +1547,7 @@ CREATE TABLE seen_arguments (
 );
 
 
-ALTER TABLE seen_arguments OWNER TO dbas;
+
 
 --
 -- Name: seen_arguments_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -1599,7 +1561,7 @@ CREATE SEQUENCE seen_arguments_uid_seq
     CACHE 1;
 
 
-ALTER TABLE seen_arguments_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: seen_arguments_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -1619,7 +1581,7 @@ CREATE TABLE seen_statements (
 );
 
 
-ALTER TABLE seen_statements OWNER TO dbas;
+
 
 --
 -- Name: seen_statements_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -1633,7 +1595,7 @@ CREATE SEQUENCE seen_statements_uid_seq
     CACHE 1;
 
 
-ALTER TABLE seen_statements_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: seen_statements_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -1657,7 +1619,7 @@ CREATE TABLE settings (
 );
 
 
-ALTER TABLE settings OWNER TO dbas;
+
 
 --
 -- Name: statement_references; Type: TABLE; Schema: public; Owner: dbas
@@ -1675,7 +1637,7 @@ CREATE TABLE statement_references (
 );
 
 
-ALTER TABLE statement_references OWNER TO dbas;
+
 
 --
 -- Name: statement_references_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -1689,7 +1651,7 @@ CREATE SEQUENCE statement_references_uid_seq
     CACHE 1;
 
 
-ALTER TABLE statement_references_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: statement_references_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -1711,7 +1673,7 @@ CREATE TABLE statement_replacements_by_premisegroup_split (
 );
 
 
-ALTER TABLE statement_replacements_by_premisegroup_split OWNER TO dbas;
+
 
 --
 -- Name: statement_replacements_by_premisegroup_split_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -1725,7 +1687,7 @@ CREATE SEQUENCE statement_replacements_by_premisegroup_split_uid_seq
     CACHE 1;
 
 
-ALTER TABLE statement_replacements_by_premisegroup_split_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: statement_replacements_by_premisegroup_split_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -1747,7 +1709,7 @@ CREATE TABLE statement_replacements_by_premisegroups_merge (
 );
 
 
-ALTER TABLE statement_replacements_by_premisegroups_merge OWNER TO dbas;
+
 
 --
 -- Name: statement_replacements_by_premisegroups_merge_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -1761,7 +1723,7 @@ CREATE SEQUENCE statement_replacements_by_premisegroups_merge_uid_seq
     CACHE 1;
 
 
-ALTER TABLE statement_replacements_by_premisegroups_merge_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: statement_replacements_by_premisegroups_merge_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -1782,7 +1744,7 @@ CREATE TABLE statements (
 );
 
 
-ALTER TABLE statements OWNER TO dbas;
+
 
 --
 -- Name: statements_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -1796,7 +1758,7 @@ CREATE SEQUENCE statements_uid_seq
     CACHE 1;
 
 
-ALTER TABLE statements_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: statements_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -1819,7 +1781,7 @@ CREATE TABLE textversions (
 );
 
 
-ALTER TABLE textversions OWNER TO dbas;
+
 
 --
 -- Name: textversions_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -1833,7 +1795,7 @@ CREATE SEQUENCE textversions_uid_seq
     CACHE 1;
 
 
-ALTER TABLE textversions_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: textversions_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -1864,7 +1826,7 @@ CREATE TABLE users (
 );
 
 
-ALTER TABLE users OWNER TO dbas;
+
 
 --
 -- Name: users_uid_seq; Type: SEQUENCE; Schema: public; Owner: dbas
@@ -1878,7 +1840,7 @@ CREATE SEQUENCE users_uid_seq
     CACHE 1;
 
 
-ALTER TABLE users_uid_seq OWNER TO dbas;
+
 
 --
 -- Name: users_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dbas
@@ -9448,380 +9410,6 @@ ALTER TABLE ONLY textversions
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_group_uid_fkey FOREIGN KEY (group_uid) REFERENCES groups(uid);
 
-
---
--- Name: news; Type: ACL; Schema: -; Owner: postgres
---
-
-GRANT ALL ON SCHEMA news TO dbas;
-
-
-SET search_path = news, pg_catalog;
-
---
--- Name: news; Type: ACL; Schema: news; Owner: dbas
---
-
-GRANT SELECT ON TABLE news TO read_only_discussion;
-
-
-SET search_path = public, pg_catalog;
-
---
--- Name: arguments; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE arguments TO read_only_discussion;
-
-
---
--- Name: arguments_added_by_premisegroups_split; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE arguments_added_by_premisegroups_split TO read_only_discussion;
-
-
---
--- Name: clicked_arguments; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE clicked_arguments TO read_only_discussion;
-
-
---
--- Name: clicked_statements; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE clicked_statements TO read_only_discussion;
-
-
---
--- Name: groups; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE groups TO read_only_discussion;
-
-
---
--- Name: history; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE history TO read_only_discussion;
-
-
---
--- Name: issues; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE issues TO read_only_discussion;
-
-
---
--- Name: languages; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE languages TO read_only_discussion;
-
-
---
--- Name: last_reviewers_delete; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE last_reviewers_delete TO read_only_discussion;
-
-
---
--- Name: last_reviewers_duplicates; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE last_reviewers_duplicates TO read_only_discussion;
-
-
---
--- Name: last_reviewers_edit; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE last_reviewers_edit TO read_only_discussion;
-
-
---
--- Name: last_reviewers_merge; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE last_reviewers_merge TO read_only_discussion;
-
-
---
--- Name: last_reviewers_optimization; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE last_reviewers_optimization TO read_only_discussion;
-
-
---
--- Name: last_reviewers_split; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE last_reviewers_split TO read_only_discussion;
-
-
---
--- Name: marked_arguments; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE marked_arguments TO read_only_discussion;
-
-
---
--- Name: marked_statements; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE marked_statements TO read_only_discussion;
-
-
---
--- Name: messages; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE messages TO read_only_discussion;
-
-
---
--- Name: optimization_review_locks; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE optimization_review_locks TO read_only_discussion;
-
-
---
--- Name: premisegroup_merged; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE premisegroup_merged TO read_only_discussion;
-
-
---
--- Name: premisegroup_splitted; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE premisegroup_splitted TO read_only_discussion;
-
-
---
--- Name: premisegroups; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE premisegroups TO read_only_discussion;
-
-
---
--- Name: premises; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE premises TO read_only_discussion;
-
-
---
--- Name: reputation_history; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE reputation_history TO read_only_discussion;
-
-
---
--- Name: reputation_reasons; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE reputation_reasons TO read_only_discussion;
-
-
---
--- Name: review_canceled; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE review_canceled TO read_only_discussion;
-
-
---
--- Name: review_delete_reasons; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE review_delete_reasons TO read_only_discussion;
-
-
---
--- Name: review_deletes; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE review_deletes TO read_only_discussion;
-
-
---
--- Name: review_duplicates; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE review_duplicates TO read_only_discussion;
-
-
---
--- Name: review_edit_values; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE review_edit_values TO read_only_discussion;
-
-
---
--- Name: review_edits; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE review_edits TO read_only_discussion;
-
-
---
--- Name: review_merge; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE review_merge TO read_only_discussion;
-
-
---
--- Name: review_merge_values; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE review_merge_values TO read_only_discussion;
-
-
---
--- Name: review_optimizations; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE review_optimizations TO read_only_discussion;
-
-
---
--- Name: review_split; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE review_split TO read_only_discussion;
-
-
---
--- Name: review_split_values; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE review_split_values TO read_only_discussion;
-
-
---
--- Name: revoked_content; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE revoked_content TO read_only_discussion;
-
-
---
--- Name: revoked_content_history; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE revoked_content_history TO read_only_discussion;
-
-
---
--- Name: revoked_duplicate; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE revoked_duplicate TO read_only_discussion;
-
-
---
--- Name: rss; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE rss TO read_only_discussion;
-
-
---
--- Name: seen_arguments; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE seen_arguments TO read_only_discussion;
-
-
---
--- Name: seen_statements; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE seen_statements TO read_only_discussion;
-
-
---
--- Name: settings; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE settings TO read_only_discussion;
-
-
---
--- Name: statement_references; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE statement_references TO read_only_discussion;
-
-
---
--- Name: statement_replacements_by_premisegroup_split; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE statement_replacements_by_premisegroup_split TO read_only_discussion;
-
-
---
--- Name: statement_replacements_by_premisegroups_merge; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE statement_replacements_by_premisegroups_merge TO read_only_discussion;
-
-
---
--- Name: statements; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE statements TO read_only_discussion;
-
-
---
--- Name: textversions; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE textversions TO read_only_discussion;
-
-
---
--- Name: users; Type: ACL; Schema: public; Owner: dbas
---
-
-GRANT SELECT ON TABLE users TO read_only_discussion;
-
-
---
--- Name: DEFAULT PRIVILEGES FOR TABLES; Type: DEFAULT ACL; Schema: public; Owner: postgres
---
-
-ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public REVOKE ALL ON TABLES  FROM postgres;
-ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT SELECT ON TABLES  TO read_only_discussion;
-
-
---
--- Name: DEFAULT PRIVILEGES FOR TABLES; Type: DEFAULT ACL; Schema: public; Owner: dbas
---
-
-ALTER DEFAULT PRIVILEGES FOR ROLE dbas IN SCHEMA public REVOKE ALL ON TABLES  FROM dbas;
-ALTER DEFAULT PRIVILEGES FOR ROLE dbas IN SCHEMA public GRANT SELECT ON TABLES  TO read_only_discussion;
-
-
---
--- PostgreSQL database dump complete
---
 
 \connect postgres
 
