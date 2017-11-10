@@ -1,3 +1,5 @@
+\connect discussion
+
 BEGIN;
 
 -- Running upgrade 2a4bc7c8ff38 -> 42d481d084b2
